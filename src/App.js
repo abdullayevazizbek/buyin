@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { React, useRef } from 'react'
+import { Header, GlobalStyles, Banner, Categories } from './components'
+import useOnClickOutside from './hooks/useOnClickOutside'
+import { useSelector, useDispatch } from 'react-redux'
+import { CategoryCloseAC } from './redux/reducers/modalReducer'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const { categoryModal } = useSelector((state) => state.modalState)
+    const dispatch = useDispatch()
+    const ref = useRef()
+    useOnClickOutside(ref, () => dispatch(CategoryCloseAC()))
+    return (
+        <div>
+            <GlobalStyles open={categoryModal} />
+            <Header />
+            <Banner />
+            <Categories customRef={ref} />
+        </div>
+    )
 }
 
-export default App;
+export default App
