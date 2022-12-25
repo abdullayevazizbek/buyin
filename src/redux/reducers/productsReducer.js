@@ -1,11 +1,13 @@
 import Axios from './../../helpers/axios'
-import { RecommendedProductsListUrl } from '../../helpers/url'
+import { GetProductWithSlug, RecommendedProductsListUrl } from '../../helpers/url'
 
 const SET_LOADING = 'SET_LOADING'
 const SET_RECOMMENDEDPRODUCTS = 'SET_RECOMMENDEDPRODUCTS'
+const SET_PRODUCT = 'SET_PRODUCT'
 
 const initialState = {
     recommendedProducts: [],
+    product: {},
     loading: false,
 }
 
@@ -16,6 +18,9 @@ function ProductsReducer(state = initialState, action) {
 
         case SET_LOADING:
             return { ...state, loading: action.payload.loading }
+
+        case SET_PRODUCT:
+            return { ...state, product: action.payload.product }
 
         default:
             return state
@@ -32,6 +37,11 @@ export const SetLoadingAC = (loading) => ({
     payload: { loading },
 })
 
+export const SetProductAC = (product) => ({
+    type: SET_PRODUCT,
+    payload: { product }
+})
+
 export default ProductsReducer
 
 export function GetRecommendedProducts() {
@@ -45,5 +55,17 @@ export function GetRecommendedProducts() {
             .catch(function (err) {
                 dispatch(SetLoadingAC(false))
             })
+    }
+}
+
+export function GetProduct(slug) {
+    return async function (dispatch) {
+        dispatch(SetLoadingAC(true))
+        Axios.get(GetProductWithSlug(slug)).then(function (response) {
+            dispatch(SetProductAC(response.data.product))
+            dispatch(SetLoadingAC(false))
+        }).catch(function (error) {
+            dispatch(SetLoadingAC(false))
+        })
     }
 }

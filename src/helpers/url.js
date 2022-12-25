@@ -13,3 +13,4 @@ export const CategoriesListUrl = '/category/list'
 // Products
 
 export const RecommendedProductsListUrl = '/product/list'
+export const GetProductWithSlug = function (slug) { return `/product/${slug}` }

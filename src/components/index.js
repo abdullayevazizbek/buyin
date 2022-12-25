@@ -5,6 +5,7 @@ import { Img } from './Img'
 import { Flex } from './Flex'
 import Banner from './banner/Banner'
 import Categories from './categories/Categories'
+import ProductListSlider from './product list/ProductListSlider'
 import {
     Typography,
     H1,
@@ -39,4 +40,5 @@ export {
     Flex,
     Banner,
     Categories,
+    ProductListSlider
 }

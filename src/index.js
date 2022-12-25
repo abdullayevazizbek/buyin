@@ -7,11 +7,14 @@ import 'swiper/css/pagination'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { store } from './redux'
 import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
 
 const root = ReactDOM.createRoot(document.querySelector('.wrapper'))
 
 root.render(
-    <Provider store={store}>
-        <App />
-    </Provider>
+    <BrowserRouter>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </BrowserRouter>
 )

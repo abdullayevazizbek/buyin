@@ -1,22 +1,23 @@
-import { React, useRef } from 'react'
-import { Header, GlobalStyles, Banner, Categories } from './components'
-import useOnClickOutside from './hooks/useOnClickOutside'
-import { useSelector, useDispatch } from 'react-redux'
-import { CategoryCloseAC } from './redux/reducers/modalReducer'
-import ProductListSlider from './components/product list/ProductListSlider'
+import { React } from 'react'
+import { GlobalStyles } from './components'
+import { useSelector } from 'react-redux'
+import { Routes, Route } from 'react-router-dom'
+import Home from './Pages/Home'
+import ProductPage from './Pages/ProductPage'
+
 
 function App() {
     const { categoryModal } = useSelector((state) => state.modalState)
-    const dispatch = useDispatch()
-    const ref = useRef()
-    useOnClickOutside(ref, () => dispatch(CategoryCloseAC()))
+
     return (
         <div>
             <GlobalStyles open={categoryModal} />
-            <Header />
-            <Banner />
-            <Categories customRef={ref} />
-            <ProductListSlider />
+
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/product/:slug" element={<ProductPage />} />
+
+            </Routes>
         </div>
     )
 }

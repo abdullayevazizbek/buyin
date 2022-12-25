@@ -18,7 +18,7 @@ function Banner() {
     }, [])
 
     return (
-        <Box mt={20}>
+        <Box my={20}>
             <Container>
                 {loading ? (
                     <BannerSkeleton baseColor='#ebebeb' highlightColor='#fff' />
