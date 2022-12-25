@@ -16,6 +16,7 @@ import {
     Span,
     SemiSpan,
     Tiny,
+    Small,
 } from './Typography'
 
 export {
@@ -34,6 +35,7 @@ export {
     Span,
     SemiSpan,
     Tiny,
+    Small,
     Flex,
     Banner,
     Categories,

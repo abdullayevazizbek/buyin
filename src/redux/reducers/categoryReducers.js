@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const initialState = {
     categories: [
         {
@@ -73,3 +75,16 @@ export const SetCategoriesAC = (categories) => ({
     type: 'SET_CATEGORIES',
     payload: { categories },
 })
+
+export function getCategories() {
+    return function (dispatch) {
+        axios
+            .get('https://ecommerce.main-gate.appx.uz/dev/v1/category/list')
+            .then(function (response) {
+                dispatch(SetCategoriesAC(response.data.categories))
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }
+}

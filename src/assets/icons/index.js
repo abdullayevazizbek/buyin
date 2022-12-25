@@ -5,6 +5,7 @@ import SearchIcon from './SearchIcon'
 import SliderNextIcon from './SliderNextIcon'
 import SliderPrevIcon from './SliderPrevIcon'
 import ArrowRight from './ArrowRight'
+import VerifyIcon from './VerifyIcon'
 
 export {
     LocationIcon,
@@ -14,4 +15,5 @@ export {
     SliderNextIcon,
     SliderPrevIcon,
     ArrowRight,
+    VerifyIcon,
 }

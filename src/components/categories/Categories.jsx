@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { ArrowRight } from '../../assets/icons'
 import { colors } from '../../helpers/colors'
-import { Box, Flex, H2, Span } from '../index'
+import { Box, Flex, H2, Img, Span } from '../index'
 import { useSelector, useDispatch } from 'react-redux'
-import axios from 'axios'
-import { SetCategoriesAC } from '../../redux/reducers/categoryReducers'
+import { getCategories } from './../../redux/reducers/categoryReducers'
 
 function Categories(props) {
     const { customRef } = props
@@ -18,19 +17,8 @@ function Categories(props) {
         setSubCategories(el)
     }
 
-    function getCategories() {
-        axios
-            .get('https://ecommerce.main-gate.appx.uz/dev/v1/category/list')
-            .then(function (response) {
-                dispatch(SetCategoriesAC(response.data.categories))
-            })
-            .catch(function (error) {
-                console.log(error)
-            })
-    }
-
     useEffect(function () {
-        getCategories()
+        dispatch(getCategories())
     }, [])
 
     return (
@@ -42,7 +30,12 @@ function Categories(props) {
                             key={item.id}
                             onMouseEnter={() => handleMouseEnter(item)}
                         >
-                            <Span>{item.name_uz}</Span>
+                            <Flex alignItems='center' gap={12}>
+                                <StyledImgWrap>
+                                    <Img src={item.image} objectFit='contain' />
+                                </StyledImgWrap>
+                                <Span>{item.name_uz}</Span>
+                            </Flex>
                             {!!item.children.length && <ArrowRight />}
                         </StyledItem>
                     ))}
@@ -112,4 +105,9 @@ const StyledItem = styled(Flex)`
             stroke: ${colors.white};
         }
     }
+`
+const StyledImgWrap = styled.div`
+    position: relative;
+    width: 40px;
+    height: 40px;
 `

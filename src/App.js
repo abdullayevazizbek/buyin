@@ -3,6 +3,7 @@ import { Header, GlobalStyles, Banner, Categories } from './components'
 import useOnClickOutside from './hooks/useOnClickOutside'
 import { useSelector, useDispatch } from 'react-redux'
 import { CategoryCloseAC } from './redux/reducers/modalReducer'
+import ProductListSlider from './components/product list/ProductListSlider'
 
 function App() {
     const { categoryModal } = useSelector((state) => state.modalState)
@@ -15,6 +16,7 @@ function App() {
             <Header />
             <Banner />
             <Categories customRef={ref} />
+            <ProductListSlider />
         </div>
     )
 }
