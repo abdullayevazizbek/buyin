@@ -2,9 +2,7 @@ import { React } from 'react'
 import { GlobalStyles } from './components'
 import { useSelector } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
-import Home from './Pages/Home'
-import ProductPage from './Pages/ProductPage'
-
+import { routes } from './helpers/routes'
 
 function App() {
     const { categoryModal } = useSelector((state) => state.modalState)
@@ -14,9 +12,13 @@ function App() {
             <GlobalStyles open={categoryModal} />
 
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/product/:slug" element={<ProductPage />} />
-
+                {routes.map((item) => (
+                    <Route
+                        key={item.id}
+                        path={item.path}
+                        element={item.component}
+                    />
+                ))}
             </Routes>
         </div>
     )

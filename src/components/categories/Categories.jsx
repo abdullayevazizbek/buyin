@@ -5,6 +5,8 @@ import { colors } from '../../helpers/colors'
 import { Box, Flex, H2, Img, Span } from '../index'
 import { useSelector, useDispatch } from 'react-redux'
 import { getCategories } from './../../redux/reducers/categoryReducers'
+import { Link } from 'react-router-dom'
+import { CategoryCloseAC } from '../../redux/reducers/modalReducer'
 
 function Categories(props) {
     const { customRef } = props
@@ -26,18 +28,26 @@ function Categories(props) {
             <Flex>
                 <StyledBox>
                     {categories.map((item) => (
-                        <StyledItem
-                            key={item.id}
-                            onMouseEnter={() => handleMouseEnter(item)}
+                        <Link
+                            to={`/category/${item.slug}`}
+                            onClick={() => dispatch(CategoryCloseAC())}
                         >
-                            <Flex alignItems='center' gap={12}>
-                                <StyledImgWrap>
-                                    <Img src={item.image} objectFit='contain' />
-                                </StyledImgWrap>
-                                <Span>{item.name_uz}</Span>
-                            </Flex>
-                            {!!item.children.length && <ArrowRight />}
-                        </StyledItem>
+                            <StyledItem
+                                key={item.id}
+                                onMouseEnter={() => handleMouseEnter(item)}
+                            >
+                                <Flex alignItems='center' gap={12}>
+                                    <StyledImgWrap>
+                                        <Img
+                                            src={item.image}
+                                            objectFit='contain'
+                                        />
+                                    </StyledImgWrap>
+                                    <Span>{item.name_uz}</Span>
+                                </Flex>
+                                {!!item.children.length && <ArrowRight />}
+                            </StyledItem>
+                        </Link>
                     ))}
                 </StyledBox>
                 {!!subCategories?.children?.length && (

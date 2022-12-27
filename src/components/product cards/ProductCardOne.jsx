@@ -4,26 +4,43 @@ import { colors } from './../../helpers/colors'
 import { Flex, H5, H6, Img, Small, Box } from '../index'
 import { VerifyIcon } from '../../assets/icons'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { GetProduct } from '../../redux/reducers/productsReducer'
 
 function ProductCardOne(props) {
+    const dispatch = useDispatch()
+
+    function productHandler(slug) {
+        dispatch(GetProduct(slug))
+    }
+
     const { product } = props
     return (
-        <Link to={`/product/${product.slug}`}>
+        <Link
+            to={`/product/${product.slug}`}
+            onClick={() => productHandler(product.slug)}
+        >
             <Wrapper>
                 <ProductImg>
-                    <Img src={product.image} objectFit="contain" />
+                    <Img src={product.image} objectFit='contain' />
                 </ProductImg>
-                <Flex flexGrow={1} flexDirection="column">
-                    <H6 color="#313030" mb="8px">{product.name_uz}</H6>
-                    <Flex alignItems="center" gap={8} mb={10}>
+                <Flex flexGrow={1} flexDirection='column'>
+                    <H6 color='#313030' mb='8px'>
+                        {product.name_uz}
+                    </H6>
+                    <Flex alignItems='center' gap={8} mb={10}>
                         <VerifyIcon />
                         <Small>в наличии</Small>
                     </Flex>
                 </Flex>
 
                 <Box>
-                    <PreviusPrice>{Number(product.previous_price).toLocaleString()} сум</PreviusPrice>
-                    <H5 mt={10}>{Number(product.price).toLocaleString()} сум</H5>
+                    <PreviusPrice>
+                        {Number(product.previous_price).toLocaleString()} сум
+                    </PreviusPrice>
+                    <H5 mt={10}>
+                        {Number(product.price).toLocaleString()} сум
+                    </H5>
                 </Box>
             </Wrapper>
         </Link>

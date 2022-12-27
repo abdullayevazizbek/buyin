@@ -6,6 +6,9 @@ import SliderNextIcon from './SliderNextIcon'
 import SliderPrevIcon from './SliderPrevIcon'
 import ArrowRight from './ArrowRight'
 import VerifyIcon from './VerifyIcon'
+import RefreshIcon from './RefreshIcon'
+import DeliveryIcon from './DeliveryIcon'
+import HangerIcon from './HangerIcon'
 
 export {
     LocationIcon,
@@ -16,4 +19,7 @@ export {
     SliderPrevIcon,
     ArrowRight,
     VerifyIcon,
+    RefreshIcon,
+    DeliveryIcon,
+    HangerIcon,
 }

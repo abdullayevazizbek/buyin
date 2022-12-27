@@ -9,8 +9,11 @@ export const BannersListUrl = '/events/list'
 // Categories
 
 export const CategoriesListUrl = '/category/list'
+export const GetCategoryWithSlug = (slug) => `/category/${slug}`
 
 // Products
 
 export const RecommendedProductsListUrl = '/product/list'
-export const GetProductWithSlug = function (slug) { return `/product/${slug}` }
+export const GetProductWithSlug = function (slug) {
+    return `/product/${slug}`
+}
