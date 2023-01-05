@@ -17,3 +17,8 @@ export const RecommendedProductsListUrl = '/product/list'
 export const GetProductWithSlug = function (slug) {
     return `/product/${slug}`
 }
+
+// User
+
+export const login = '/auth/login'
+export const verify = '/auth/verify'

@@ -1,15 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
-import { CategoryIcon, Logo, SearchIcon } from '../../assets/icons'
+import { CategoryIcon, Logo, ProfileIcon, SearchIcon } from '../../assets/icons'
 import { colors } from './../../helpers/colors'
-import { Box, Container, Flex, Span } from '../index'
+import { Box, Container, Flex, Span, SemiSpan } from '../index'
 import { useDispatch, useSelector } from 'react-redux'
 import { CategoryOpenAC } from '../../redux/reducers/modalReducer'
+import { LoginModalOpenAC } from './../../redux/reducers/modalReducer'
 
 function HeaderMain() {
-    const { categoryModal } = useSelector((state) => state.modalState)
+    const { loginModal } = useSelector((state) => state.modalState)
     const dispatch = useDispatch()
-    console.log(categoryModal)
+
+    const handleProfileBtn = () => {
+        dispatch(LoginModalOpenAC())
+    }
+
     return (
         <Wrapper>
             <Container>
@@ -32,6 +37,15 @@ function HeaderMain() {
                                 <SearchIcon />
                             </SearchBtn>
                         </SearchWrapper>
+
+                        <BtnsWrapper>
+                            <RegisterBtn onClick={handleProfileBtn}>
+                                <ProfileIcon />
+                                <SemiSpan color={colors.white}>
+                                    Регистрация
+                                </SemiSpan>
+                            </RegisterBtn>
+                        </BtnsWrapper>
                     </Flex>
                 </Flex>
             </Container>
@@ -88,4 +102,33 @@ const SearchBtn = styled.button`
     justify-content: center;
     background-color: ${colors.blue['700']};
     border-radius: 10px;
+`
+const BtnsWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 20px;
+`
+const RegisterBtn = styled.button`
+    padding: 3px 13px 3px 3px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: ${colors.blue[500]};
+    border-radius: 5px;
+    border: 1px solid ${colors.blue[500]};
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: transparent;
+
+        span {
+            color: ${colors.blue[500]};
+        }
+
+        svg,
+        circle,
+        ellipse {
+            stroke: ${colors.blue[500]};
+        }
+    }
 `

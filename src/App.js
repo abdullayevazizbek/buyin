@@ -5,11 +5,15 @@ import { Routes, Route } from 'react-router-dom'
 import { routes } from './helpers/routes'
 
 function App() {
-    const { categoryModal } = useSelector((state) => state.modalState)
+    const { categoryModal, loginModal } = useSelector(
+        (state) => state.modalState
+    )
 
     return (
         <div>
-            <GlobalStyles open={categoryModal} />
+            <GlobalStyles
+                open={[categoryModal, loginModal].some((item) => item)}
+            />
 
             <Routes>
                 {routes.map((item) => (

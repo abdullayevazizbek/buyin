@@ -18,11 +18,10 @@ function ProductListSlider() {
         dispatch(GetRecommendedProducts())
     }, [])
 
-    console.log(recommendedProducts)
     return (
         <Box>
             <Container>
-                <SectionTitle title="В Тренде" />
+                <SectionTitle title='В Тренде' />
                 {loading ? (
                     <h1>Loading...</h1>
                 ) : (
@@ -42,6 +41,5 @@ function ProductListSlider() {
 export default ProductListSlider
 
 const StyledSwiper = styled(Swiper)`
-    padding:10px;
-
+    padding: 10px;
 `

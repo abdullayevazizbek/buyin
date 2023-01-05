@@ -2,8 +2,7 @@ import React, { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import useOnClickOutside from '../../hooks/useOnClickOutside'
 import { CategoryCloseAC } from '../../redux/reducers/modalReducer'
-import Categories from '../categories/Categories'
-import Header from '../header/Header'
+import { Categories, Header, LoginModal } from '../index'
 
 function Page(props) {
     const { children } = props
@@ -14,9 +13,8 @@ function Page(props) {
         <div>
             <Header />
             <Categories customRef={ref} />
-            <main>
-                {children}
-            </main>
+            <LoginModal />
+            <main>{children}</main>
         </div>
     )
 }
