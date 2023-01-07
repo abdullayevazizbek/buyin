@@ -10,6 +10,8 @@ import RefreshIcon from './RefreshIcon'
 import DeliveryIcon from './DeliveryIcon'
 import HangerIcon from './HangerIcon'
 import ProfileIcon from './ProfileIcon'
+import CloseIcon from './CloseIcon'
+import AvatarIcon from './AvatarIcon'
 
 export {
     LocationIcon,
@@ -24,4 +26,6 @@ export {
     DeliveryIcon,
     HangerIcon,
     ProfileIcon,
+    CloseIcon,
+    AvatarIcon,
 }

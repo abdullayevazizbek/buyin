@@ -22,3 +22,8 @@ export const GetProductWithSlug = function (slug) {
 
 export const login = '/auth/login'
 export const verify = '/auth/verify'
+
+// Cart
+
+export const cartListUrl = '/cart/list'
+export const cartAddUrl = '/cart/add'

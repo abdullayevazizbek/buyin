@@ -13,22 +13,34 @@ import {
     H5,
     Box,
     H4,
+    Counter,
 } from '../components'
 import styled from 'styled-components'
 import { colors } from '../helpers/colors'
 import { DeliveryIcon, RefreshIcon } from '../assets/icons'
 import HangerIcon from './../assets/icons/HangerIcon'
+import useAuth from './../hooks/useAuth'
+import { LoginModalOpenAC } from '../redux/reducers/modalReducer'
+import { AddProductToCart } from '../redux/reducers/cartReducer'
 
 function ProductPage() {
     const { slug } = useParams()
     const { product, loading } = useSelector((state) => state.productState)
+    const { cartProducts } = useSelector((state) => state.cartState)
     const dispatch = useDispatch()
+    const isLogin = useAuth()
 
     useEffect(() => {
         dispatch(GetProduct(slug))
     }, [])
 
-    console.log(product)
+    const handleProductBtn = () => {
+        if (isLogin) {
+            dispatch(AddProductToCart(product.id))
+        } else {
+            dispatch(LoginModalOpenAC())
+        }
+    }
 
     return (
         <Page>
@@ -107,11 +119,17 @@ function ProductPage() {
                                         UZS
                                     </H2>
 
-                                    <ProductBtn>
-                                        <Span color={colors.white}>
-                                            В Корзину
-                                        </Span>
-                                    </ProductBtn>
+                                    {cartProducts.some(
+                                        (item) => item.product_id === product.id
+                                    ) ? (
+                                        <Counter />
+                                    ) : (
+                                        <ProductBtn onClick={handleProductBtn}>
+                                            <Span color={colors.white}>
+                                                В Корзину
+                                            </Span>
+                                        </ProductBtn>
+                                    )}
 
                                     <Box>
                                         <H4 color='#3C3C3C' mb='30px'>

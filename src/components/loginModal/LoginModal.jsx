@@ -4,6 +4,8 @@ import { colors } from '../../helpers/colors'
 import { useSelector, useDispatch } from 'react-redux'
 import { Flex, H4, Span, Box, H5 } from '../index'
 import { PostUser, PostUserVerify } from './../../redux/reducers/userReducer'
+import { CloseIcon } from '../../assets/icons'
+import { LoginModalCloseAC } from '../../redux/reducers/modalReducer'
 
 function LoginModal() {
     const { loginModal } = useSelector((state) => state.modalState)
@@ -36,9 +38,17 @@ function LoginModal() {
         }
     }
 
+    const handleCloseBtn = () => {
+        dispatch(LoginModalCloseAC())
+    }
+
     return (
         <Wrapper open={loginModal}>
             <H4 mb={20}>Войти / Регистрация</H4>
+
+            <CloseBtn onClick={handleCloseBtn}>
+                <CloseIcon />
+            </CloseBtn>
 
             <Flex mb={20} flexDirection='column'>
                 <Span mb={10}>
@@ -132,4 +142,16 @@ const LoginBtn = styled.button`
             color: ${colors.blue[600]};
         }
     }
+`
+const CloseBtn = styled.button`
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #a5a5a5;
+    border-radius: 50%;
 `

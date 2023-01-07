@@ -1,18 +1,29 @@
 import React from 'react'
 import styled from 'styled-components'
-import { CategoryIcon, Logo, ProfileIcon, SearchIcon } from '../../assets/icons'
+import {
+    AvatarIcon,
+    CategoryIcon,
+    Logo,
+    ProfileIcon,
+    SearchIcon,
+} from '../../assets/icons'
 import { colors } from './../../helpers/colors'
 import { Box, Container, Flex, Span, SemiSpan } from '../index'
 import { useDispatch, useSelector } from 'react-redux'
 import { CategoryOpenAC } from '../../redux/reducers/modalReducer'
 import { LoginModalOpenAC } from './../../redux/reducers/modalReducer'
+import { Link } from 'react-router-dom'
+import useAuth from './../../hooks/useAuth'
 
 function HeaderMain() {
     const { loginModal } = useSelector((state) => state.modalState)
     const dispatch = useDispatch()
+    const isLogin = useAuth()
 
     const handleProfileBtn = () => {
-        dispatch(LoginModalOpenAC())
+        if (!isLogin) {
+            dispatch(LoginModalOpenAC())
+        }
     }
 
     return (
@@ -20,7 +31,9 @@ function HeaderMain() {
             <Container>
                 <Flex>
                     <Box mr='64px'>
-                        <Logo />
+                        <Link to='/'>
+                            <Logo />
+                        </Link>
                     </Box>
 
                     <Flex>
@@ -40,9 +53,9 @@ function HeaderMain() {
 
                         <BtnsWrapper>
                             <RegisterBtn onClick={handleProfileBtn}>
-                                <ProfileIcon />
+                                {isLogin ? <AvatarIcon /> : <ProfileIcon />}
                                 <SemiSpan color={colors.white}>
-                                    Регистрация
+                                    {isLogin ? 'Профиль' : 'Регистрация'}
                                 </SemiSpan>
                             </RegisterBtn>
                         </BtnsWrapper>
