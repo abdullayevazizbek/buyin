@@ -9,6 +9,8 @@ function App() {
         (state) => state.modalState
     )
 
+    
+
     return (
         <div>
             <GlobalStyles

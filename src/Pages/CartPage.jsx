@@ -16,12 +16,11 @@ import { colors } from '../helpers/colors'
 import { GetCartProducts } from '../redux/reducers/cartReducer'
 
 function CartPage() {
-    const { cartProducts } = useSelector((state) => state.cartState)
+    const { cartProducts, loading } = useSelector((state) => state.cartState)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(GetCartProducts())
     }, [])
-    console.log(cartProducts)
     return (
         <Page>
             <Container>
@@ -32,16 +31,26 @@ function CartPage() {
                     </Flex>
 
                     <Flex mb={30}>
-                        <H2>Товаров в корзине (2)</H2>
+                        <H2>
+                            Товаров в корзине{' '}
+                            {cartProducts?.length > 0 && cartProducts.length}
+                        </H2>
                     </Flex>
                 </Box>
                 <Wrapper>
                     <LeftBlock>
-                        <Flex flexDirection='column'>
-                            {cartProducts?.map((item) => (
-                                <ProductCardTwo product={item} key={item.id} />
-                            ))}
-                        </Flex>
+                        {loading ? (
+                            <h2>Loading...</h2>
+                        ) : (
+                            <Flex flexDirection='column'>
+                                {cartProducts?.map((item) => (
+                                    <ProductCardTwo
+                                        product={item}
+                                        key={item.id}
+                                    />
+                                ))}
+                            </Flex>
+                        )}
                     </LeftBlock>
                     <RightBlock>
                         <Flex gap={30} justifyContent='center' mb={30}>

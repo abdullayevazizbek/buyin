@@ -21,17 +21,23 @@ import { DeliveryIcon, RefreshIcon } from '../assets/icons'
 import HangerIcon from './../assets/icons/HangerIcon'
 import useAuth from './../hooks/useAuth'
 import { LoginModalOpenAC } from '../redux/reducers/modalReducer'
-import { AddProductToCart } from '../redux/reducers/cartReducer'
+import {
+    AddProductToCart,
+    GetCartProducts,
+} from '../redux/reducers/cartReducer'
 
 function ProductPage() {
     const { slug } = useParams()
     const { product, loading } = useSelector((state) => state.productState)
-    const { cartProducts } = useSelector((state) => state.cartState)
+    const { cartProducts, loading: cartLoading } = useSelector(
+        (state) => state.cartState
+    )
     const dispatch = useDispatch()
     const isLogin = useAuth()
 
     useEffect(() => {
         dispatch(GetProduct(slug))
+        dispatch(GetCartProducts())
     }, [])
 
     const handleProductBtn = () => {
@@ -124,9 +130,14 @@ function ProductPage() {
                                     ) ? (
                                         <Counter />
                                     ) : (
-                                        <ProductBtn onClick={handleProductBtn}>
+                                        <ProductBtn
+                                            onClick={handleProductBtn}
+                                            disabled={cartLoading}
+                                        >
                                             <Span color={colors.white}>
-                                                В Корзину
+                                                {cartLoading
+                                                    ? 'Loading...'
+                                                    : 'В Корзину'}
                                             </Span>
                                         </ProductBtn>
                                     )}

@@ -3,12 +3,13 @@ import styled from 'styled-components'
 import { colors } from '../helpers/colors'
 import { H4 } from './Typography'
 
-function Counter() {
+function Counter(props) {
+    const { qty, incrementButton, decrementButton } = props
     return (
         <Wrapper>
-            <StyledButton>&#45;</StyledButton>
-            <H4>1</H4>
-            <StyledButton>&#43;</StyledButton>
+            <StyledButton onClick={decrementButton}>&#45;</StyledButton>
+            <H4>{qty}</H4>
+            <StyledButton onClick={incrementButton}>&#43;</StyledButton>
         </Wrapper>
     )
 }

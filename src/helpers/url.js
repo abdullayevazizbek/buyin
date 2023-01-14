@@ -27,3 +27,5 @@ export const verify = '/auth/verify'
 
 export const cartListUrl = '/cart/list'
 export const cartAddUrl = '/cart/add'
+export const GetcartProductRemoveUrl = (id) => `/cart/remove/${id}`
+export const GetcartProductDeleteUrl = (id) => `/cart/delete/${id}`

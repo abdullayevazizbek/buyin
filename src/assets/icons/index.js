@@ -12,6 +12,7 @@ import HangerIcon from './HangerIcon'
 import ProfileIcon from './ProfileIcon'
 import CloseIcon from './CloseIcon'
 import AvatarIcon from './AvatarIcon'
+import CartIcon from './CartIcon'
 
 export {
     LocationIcon,
@@ -28,4 +29,5 @@ export {
     ProfileIcon,
     CloseIcon,
     AvatarIcon,
+    CartIcon,
 }

@@ -1,11 +1,33 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { CloseIcon } from '../../assets/icons'
 import { colors } from '../../helpers/colors'
+import {
+    AddProductToCart,
+    DeleteCartProduct,
+    RemoveCartProduct,
+} from '../../redux/reducers/cartReducer'
 import { Flex, H4, Img, Span, Counter } from '../index'
 
 function ProductCardTwo({ product }) {
-    const { image, name_uz, price } = product
+    const { image, name_uz, price, product_id, qty } = product
+    const dispatch = useDispatch()
+
+    const handleRemoveButton = () => {
+        dispatch(RemoveCartProduct(product_id))
+    }
+
+    const handleIncrementButton = () => {
+        dispatch(AddProductToCart(product_id, 1))
+    }
+
+    const handleDecrementButton = () => {
+        dispatch(DeleteCartProduct(product_id))
+    }
+
+    console.log(product)
+
     return (
         <Wrapper>
             <ImageWrap>
@@ -19,12 +41,16 @@ function ProductCardTwo({ product }) {
                     mb='14px'
                 >
                     <Span>{name_uz}</Span>
-                    <RemoveButton>
+                    <RemoveButton onClick={handleRemoveButton}>
                         <CloseIcon />
                     </RemoveButton>
                 </Flex>
                 <Flex mb={14}>
-                    <Counter />
+                    <Counter
+                        qty={qty}
+                        incrementButton={handleIncrementButton}
+                        decrementButton={handleDecrementButton}
+                    />
                 </Flex>
                 <Flex gap={24}>
                     <Flex gap={14}>

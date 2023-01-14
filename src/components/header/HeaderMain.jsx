@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {
     AvatarIcon,
+    CartIcon,
     CategoryIcon,
     Logo,
     ProfileIcon,
@@ -12,18 +13,23 @@ import { Box, Container, Flex, Span, SemiSpan } from '../index'
 import { useDispatch, useSelector } from 'react-redux'
 import { CategoryOpenAC } from '../../redux/reducers/modalReducer'
 import { LoginModalOpenAC } from './../../redux/reducers/modalReducer'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import useAuth from './../../hooks/useAuth'
 
 function HeaderMain() {
     const { loginModal } = useSelector((state) => state.modalState)
     const dispatch = useDispatch()
     const isLogin = useAuth()
+    const navigate = useNavigate()
 
     const handleProfileBtn = () => {
         if (!isLogin) {
             dispatch(LoginModalOpenAC())
         }
+    }
+
+    const handleCartButton = () => {
+        navigate('/cart')
     }
 
     return (
@@ -52,6 +58,12 @@ function HeaderMain() {
                         </SearchWrapper>
 
                         <BtnsWrapper>
+                            <CartButtonWrapper onClick={handleCartButton}>
+                                <CartIcon />
+                                <SemiSpan color={colors.black}>
+                                    Корзина
+                                </SemiSpan>
+                            </CartButtonWrapper>
                             <RegisterBtn onClick={handleProfileBtn}>
                                 {isLogin ? <AvatarIcon /> : <ProfileIcon />}
                                 <SemiSpan color={colors.white}>
@@ -143,5 +155,18 @@ const RegisterBtn = styled.button`
         ellipse {
             stroke: ${colors.blue[500]};
         }
+    }
+`
+const CartButtonWrapper = styled.button`
+    padding: 3px 13px 3px 3px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+
+    &:hover {
+        border: 1px solid ${colors.blue[500]};
     }
 `

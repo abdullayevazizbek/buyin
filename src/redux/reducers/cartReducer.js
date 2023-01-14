@@ -1,5 +1,9 @@
 import Axios from './../../helpers/axios'
-import { cartAddUrl, cartListUrl } from './../../helpers/url'
+import {
+    cartAddUrl,
+    cartListUrl,
+    GetcartProductRemoveUrl,
+} from './../../helpers/url'
 
 const SET_LOADING = 'SET_LOADING'
 const SET_CART_PRODUCTS = 'SET_CART_PRODUCTS'
@@ -34,19 +38,9 @@ export const SetCartProductsAC = (cartProducts) => ({
 
 export default CartReducer
 
-export function AddProductToCart(productId) {
+export function AddProductToCart(product_id, qty = 1) {
     return async function (dispatch) {
-        Axios.post(
-            cartAddUrl,
-            { qty: 1, product_id: productId },
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem(
-                        'accessToken'
-                    )}`,
-                },
-            }
-        )
+        Axios.post(cartAddUrl, { qty, product_id })
             .then(function (response) {
                 if (response.data.cart) {
                     dispatch(SetCartProductsAC(response.data.cart))
@@ -62,11 +56,7 @@ export function GetCartProducts() {
     return async function (dispatch) {
         dispatch(SetLoadingAC(true))
 
-        Axios.get(cartListUrl, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            },
-        })
+        Axios.get(cartListUrl)
             .then(function (response) {
                 if (response.data.cart) {
                     dispatch(SetCartProductsAC(response.data.cart))
@@ -75,6 +65,38 @@ export function GetCartProducts() {
             })
             .catch(function (error) {
                 dispatch(SetLoadingAC(false))
+                console.log(error)
+            })
+    }
+}
+
+export function RemoveCartProduct(product_id) {
+    return async function (dispatch) {
+        dispatch(SetLoadingAC(true))
+
+        Axios.post(GetcartProductRemoveUrl(product_id))
+            .then(function (response) {
+                if (response.data.cart) {
+                    dispatch(SetCartProductsAC(response.data.cart))
+                    dispatch(SetLoadingAC(false))
+                }
+            })
+            .catch(function (error) {
+                dispatch(SetLoadingAC(false))
+                console.log(error)
+            })
+    }
+}
+
+export function DeleteCartProduct(product_id) {
+    return async function (dispatch) {
+        Axios.post(GetcartProductRemoveUrl(product_id))
+            .then(function (response) {
+                if (response.data.cart) {
+                    dispatch(SetCartProductsAC(response.data.cart))
+                }
+            })
+            .catch(function (error) {
                 console.log(error)
             })
     }
